@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, 
+        initial-scale=1.0">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+        <title>SteelStream Dashboard</title>
+        
+        <link rel="stylesheet" href="./styles.css">
+    </head>
+
+    <body>
+        <div class="full-screen-container">
+            <div class="card">
+                <img class="logo" src="Logo Grey.PNG" alt="Logo"/>
+                <hr>
+                <div class="tempDisplay">
+                    <h1 class="header">Temperature</h1>
+                    <h1 id="temp">°C</h1>
+                    <button onclick="toggleUnit()">Toggle Unit</button>
+                    
+                        <script>
+                            var isCelsius = true; // Flag to track current unit
+
+                            function toggleUnit() {
+                                isCelsius = !isCelsius; // Toggle the flag
+                                updateTemperature(); // Update temperature display based on the new unit
+                            }
+
+                            function updateTemperature() {
+                                var tempElement = document.getElementById("temp");
+                                var currentTemp = parseFloat(tempElement.dataset.temp); // Use dataset to retrieve stored temperature value
+                                
+                                if (isCelsius) {
+                                    // Convert to Celsius
+                                    tempElement.innerHTML = currentTemp.toFixed(2) + "°C";
+                                } else {
+                                    // Convert to Fahrenheit
+                                    var fahrenheitTemp = (currentTemp * 9/5) + 32;
+                                    tempElement.innerHTML = fahrenheitTemp.toFixed(2) + "°F";
+                                }
+                            }
+
+                            // Client side setup
+                            var socket = io();
+                            socket.on("data", function(data) {
+                                console.log(data);
+                                document.getElementById("temp").dataset.temp = data; // Store temperature value in dataset
+                                updateTemperature(); // Update temperature display based on the current unit
+                            });
+
+                        </script>
+                                            
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
