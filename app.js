@@ -12,7 +12,7 @@ const parser = new parsers.Readline({
 });
 
 //Enter Serial Port and Baud Rate here
-var port = new SerialPort("/dev/tty.usbserial-01C5F8C9",{ 
+var port = new SerialPort("/dev/tty.usbserial-01C60202",{ 
     baudRate: 115200,
     dataBits: 8,
     parity: "none",

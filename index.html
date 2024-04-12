@@ -18,8 +18,8 @@
                 <hr>
                 <div class="tempDisplay">
                     <h1 class="header">Temperature</h1>
-                    <h1 id="temp">°C</h1>
-                    <button onclick="toggleUnit()">Toggle Unit</button>
+                    <h1 id="temp">30°C</h1>
+                    <div class="button" onclick="toggleUnit()">Toggle Unit</button>
                     
                         <script>
                             var isCelsius = true; // Flag to track current unit
@@ -43,14 +43,23 @@
                                 }
                             }
 
-                            // Client side setup
                             var socket = io();
+                            var temperatureBuffer = []; // Buffer to store the last 5 temperature samples
+
                             socket.on("data", function(data) {
                                 console.log(data);
-                                document.getElementById("temp").dataset.temp = data; // Store temperature value in dataset
+                                temperatureBuffer.push(data); // Add new temperature to the buffer
+                            
+                                if (temperatureBuffer.length > 5) {
+                                temperatureBuffer.shift(); // Remove oldest temperature if buffer exceeds size 5
+                                }
+                            
+                                var highestTemp = Math.max(...temperatureBuffer); // Find the highest temperature in the buffer
+                                document.getElementById("temp").dataset.temp = highestTemp; // Store highest temperature in dataset
                                 updateTemperature(); // Update temperature display based on the current unit
                             });
 
+                    
                         </script>
                                             
                 </div>
