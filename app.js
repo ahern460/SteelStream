@@ -29,7 +29,7 @@ var app = http.createServer(function(req, res) {
     } else if (req.url.includes("styles.css")) {
         res.writeHead(200, {"Content-Type": "text/css"});
         res.end(styles);
-    } else if (req.url.includes("Logo")) {
+    } else if (req.url.includes("SteelStream")) {
         res.writeHead(200, {"Content-Type": "image/png"});
         res.end(logo);
     }
