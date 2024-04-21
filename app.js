@@ -2,7 +2,7 @@ var http = require("http");
 var fs = require("fs");
 var index = fs.readFileSync("./index.html");
 var styles = fs.readFileSync("./styles.css");
-var logo = fs.readFileSync("Logo Grey.PNG");
+var logo = fs.readFileSync("SteelStream Logo (5).png");
 
 var SerialPort = require("serialport");
 
@@ -29,7 +29,7 @@ var app = http.createServer(function(req, res) {
     } else if (req.url.includes("styles.css")) {
         res.writeHead(200, {"Content-Type": "text/css"});
         res.end(styles);
-    } else if (req.url.includes("SteelStream")) {
+    } else if (req.url.includes("Logo")) {
         res.writeHead(200, {"Content-Type": "image/png"});
         res.end(logo);
     }
